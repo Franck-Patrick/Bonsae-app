@@ -4,6 +4,10 @@ import { AppService } from './app.service';
 import { TurmaModule } from './turma/turma.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
+import { PeriodoLetivoModule } from './periodo-letivo/periodo-letivo.module';
+import { MongooseModule } from '@nestjs/mongoose'; // Importe o MongooseModule
+import { ConfigService } from '@nestjs/config';
+
 
 @Module({
   imports: [
@@ -12,8 +16,16 @@ import { ConfigModule } from '@nestjs/config';
     }),
     DatabaseModule,
     TurmaModule,
+    PeriodoLetivoModule,
+    MongooseModule.forRootAsync({ // Adicione esta configuração para a conexão com o MongoDB
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGO_URI'),
+      }),
+      inject: [ConfigService],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {} 
+export class AppModule {}
