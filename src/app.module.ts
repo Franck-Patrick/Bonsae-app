@@ -1,14 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TurmaModule } from './turma/turma.module';
-import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
-import { PeriodoLetivoModule } from './periodo-letivo/periodo-letivo.module';
 import { MongooseModule } from '@nestjs/mongoose'; // Importe o MongooseModule
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ExperimentModule } from './planilhas/experiment/experiment.module';
 import { UserModule } from './planilhas/user/user.module';
 
 @Module({
@@ -33,8 +29,6 @@ import { UserModule } from './planilhas/user/user.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    PeriodoLetivoModule,
-    ExperimentModule,
     UserModule    
   ],
   controllers: [AppController],
