@@ -20,7 +20,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);  // Agora você acessa em /api
 
   // Inicia o servidor
-  await app.listen(3000);
+  await app.listen(3001);
 }
 
 bootstrap();
