@@ -11,6 +11,7 @@ import { UserModule } from './planilhas/user/user.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true, // Para que o ConfigService esteja disponível globalmente
+      envFilePath: ['.env'], // Caminho para o arquivo .env
     }),
     MongooseModule.forRootAsync({ // Adicione esta configuração para a conexão com o MongoDB
       imports: [ConfigModule],
@@ -19,16 +20,20 @@ import { UserModule } from './planilhas/user/user.module';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'admin',
-      password: 'admin',
-      database: 'database',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
+    TypeOrmModule.forRootAsync({
+      useFactory: async (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get<string>('DB_HOST') || 'localhost',
+        port: parseInt(configService.get<string>('DB_PORT') || '3306', 10) || 3306,
+        username: configService.get<string>('DB_USERNAME') || 'admin',
+        password: configService.get<string>('DB_PASSWORD') || 'admin',
+        database: configService.get<string>('DB_NAME') || 'database',
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: configService.get<boolean>('DB_SYNC') ?? false,
+      }),
+      inject: [ConfigService],
+      imports: [ConfigModule],
+    }),    
     UserModule    
   ],
   controllers: [AppController],
