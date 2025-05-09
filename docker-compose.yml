@@ -1,20 +1,20 @@
 version: '3.8'
 
 services:
-#  app:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    ports:
-#      - "3000:3000"
-#    environment:
-#      - MONGO_URI=mongodb://mongo:27017/master # Conecta ao serviço 'mongo'
-#    depends_on:
-#      - mongo
-#    volumes:
-#      - .:/usr/src/app
-#      - /usr/src/app/node_modules
-#    command: npm run start:dev
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3001"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/master # Conecta ao serviço 'mongo'
+    depends_on:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start:dev
 
   mongo:
     image: mongo:latest
