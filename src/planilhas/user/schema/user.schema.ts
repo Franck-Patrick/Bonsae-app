@@ -15,9 +15,6 @@ export class User {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true })
-  processNumber: string;
-
   @Prop()
   oab?: string;
 

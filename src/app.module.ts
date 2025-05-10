@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './planilhas/user/user.module';
 import { DisciplinesModule } from './planilhas/disciplines/disciplines.module';
 import { GeneralModule } from './general/general.module';
+import { ClassesModule } from './planilhas/classes/classes.module';
 
 @Module({
   imports: [
@@ -37,7 +38,7 @@ import { GeneralModule } from './general/general.module';
       imports: [ConfigModule],
     }),    
     UserModule, 
-    DisciplinesModule, GeneralModule    
+    DisciplinesModule, GeneralModule, ClassesModule    
   ],
   controllers: [AppController],
   providers: [AppService],

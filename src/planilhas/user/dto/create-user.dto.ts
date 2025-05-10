@@ -9,56 +9,46 @@ import {
 import { UserProfile } from '../enums/user-profile.enum';
 
 export class CreateUserDto {
-  @IsEnum(UserProfile)
-  profileId: UserProfile;
+  @IsString()
+  'Perfil': string;
 
   @IsString()
   @IsOptional()
-  subprofile?: string;
+  'Subperfil': string;
 
   @IsString()
-  processNumber: string;
-
-  @IsString()
-  @Max(100)
-  name: string;
+  'Nome': string;
 
   @IsString()
   @IsOptional()
-  oab?: string;
+  'Nº da OAB': string;
 
   @IsString()
   @IsOptional()
-  @Max(2)
-  oabUf?: string;
+  'Seccional (UF OAB)': string;
 
-  @IsEmail()
-  @Max(100)
-  email: string;
+  @IsString()
+  'E-mail': string;
 
   @IsString()
   @IsOptional()
-  @Max(50)
-  registrationNumber?: string;
+  'Matrícula (IES)': string;
 
   @IsString()
   @IsOptional()
-  @Max(20)
-  telephone?: string;
+  'Telefone': string;
 
   @IsString()
-  @Max(14)
-  cpf: string;
+  'CPF': string;
 
   @IsString()
-  @Max(255)
-  password: string;
-
-  @IsIn([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-  @IsOptional()
-  periodId?: number;
+  'Senha': string;
 
   @IsString()
   @IsOptional()
-  observations?: string;
+  'Período Curricular': string;
+
+  @IsString()
+  @IsOptional()
+  'Observações': string;
 }

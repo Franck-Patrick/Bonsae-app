@@ -8,6 +8,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { mapUserDocumentToEntity } from './mapper/user.mapper';
+import { userDtoMapper } from './mapper/map-dto';
 
 @Injectable()
 export class UserService {
@@ -16,9 +17,12 @@ export class UserService {
     @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>,
   ) {}
 
-  createBulk(createUserDtoList: CreateUserDto[]) {
-    const userDocuments = createUserDtoList.map((userDto) => new this.userModel(userDto));
-    return this.userModel.insertMany(userDocuments);
+  async createBulk(createUserDtoList: CreateUserDto[]) {
+    const mappedUsers = createUserDtoList.map((dto) => userDtoMapper(dto));
+    console.log('Mapped Users:', mappedUsers);
+    const userDocuments = mappedUsers.map((data) => new this.userModel(data));
+
+    return await this.userModel.insertMany(userDocuments);
   }
 
   create(createUserDto: CreateUserDto) {
