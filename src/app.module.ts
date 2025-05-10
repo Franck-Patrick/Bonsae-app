@@ -6,6 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose'; // Importe o MongooseModule
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './planilhas/user/user.module';
+import { SubjectModule } from './planilhas/subject/subject.module';
+import { DisciplinesModule } from './planilhas/disciplines/disciplines.module';
 
 @Module({
   imports: [
@@ -34,7 +36,7 @@ import { UserModule } from './planilhas/user/user.module';
       inject: [ConfigService],
       imports: [ConfigModule],
     }),    
-    UserModule    
+    UserModule, SubjectModule, DisciplinesModule    
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -18,6 +18,9 @@ export class CreateUserDto {
   subprofile?: string;
 
   @IsString()
+  processNumber: string;
+
+  @IsString()
   @Max(100)
   name: string;
 

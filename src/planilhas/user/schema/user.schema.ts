@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 import { UserProfile } from '../enums/user-profile.enum';
 
 export type UserDocument = User & Document;
@@ -14,6 +14,9 @@ export class User {
 
   @Prop({ required: true })
   name: string;
+
+  @Prop({ required: true })
+  processNumber: string;
 
   @Prop()
   oab?: string;
