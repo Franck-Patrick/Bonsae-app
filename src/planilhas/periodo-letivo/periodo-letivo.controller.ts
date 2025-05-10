@@ -7,6 +7,21 @@ import { UpdatePeriodoLetivoDto } from './dto/update-periodo-letivo.dto';
 export class PeriodoLetivoController {
   constructor(private readonly periodoLetivoService: PeriodoLetivoService) {}
 
+  @Post('sendToMysql/:processId')
+  sendToMysql(@Param('processId') processId: string) {
+    return this.periodoLetivoService.saveToMysql(processId);
+  }
+
+  @Post('bulk')
+  createBulk(@Body() createPeriodoLetivoDtoList: CreatePeriodoLetivoDto[]) {
+    return this.periodoLetivoService.createBulk(createPeriodoLetivoDtoList);
+  }
+
+  @Post('findAllByProcessId/:processId')
+  findAllByProcessId(@Param('processId') processId: string) {
+    return this.periodoLetivoService.findAllByProcessId(processId);
+  }
+
   @Post()
   create(@Body() createPeriodoLetivoDto: CreatePeriodoLetivoDto) {
     return this.periodoLetivoService.create(createPeriodoLetivoDto);

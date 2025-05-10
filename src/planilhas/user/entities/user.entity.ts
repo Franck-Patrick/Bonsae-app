@@ -7,14 +7,8 @@ import {
   Unique
 } from 'typeorm';
 
-// Entidade do usuário
-// Representa a tabela de usuários no banco de dados
-// Todos os campos foram definidos como não obrigatórios por conta de um problema que eu tive com o TypeORM
-// onde ele não estava reconhecendo os campos como opcionais e estava dando erro de validação
 @Entity({ name: 'tb_user' })
 @Unique('unique_user', ['profileId', 'name', 'registrationNumber', 'email']) 
-// A unidade é feita com base no profileId, name, registrationNumber e email
-// Ou seja, não podem existir dois usuários com mesmo perfil, nome, matricula e email
 
 export class UserEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
