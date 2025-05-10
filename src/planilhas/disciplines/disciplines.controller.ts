@@ -2,10 +2,16 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { DisciplinesService } from './disciplines.service';
 import { CreateDisciplineDto } from './dto/create-discipline.dto';
 import { UpdateDisciplineDto } from './dto/update-discipline.dto';
+import { PeriodoLetivoEntity } from '../periodo-letivo/entities/periodo-letivo.entity';
 
 @Controller('disciplines')
 export class DisciplinesController {
   constructor(private readonly disciplinesService: DisciplinesService) {}
+
+  @Post('bulk')
+  createBulk(@Body() createDisciplineDtoList: CreateDisciplineDto[]) {
+    return this.disciplinesService.createBulk(createDisciplineDtoList);
+  }
 
   @Post()
   create(@Body() createDisciplineDto: CreateDisciplineDto) {

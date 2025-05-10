@@ -16,15 +16,6 @@ export class UserService {
     @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>,
   ) {}
 
-  async saveToMysql() {
-    return this.userModel.find().exec().then((users) => {
-      const mysqlUsers = users.map((userDoc) => {
-        return mapUserDocumentToEntity(userDoc);
-      });
-      return this.userRepository.save(mysqlUsers);
-    });
-  }
-
   createBulk(createUserDtoList: CreateUserDto[]) {
     const userDocuments = createUserDtoList.map((userDto) => new this.userModel(userDto));
     return this.userModel.insertMany(userDocuments);

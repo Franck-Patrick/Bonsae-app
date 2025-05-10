@@ -16,15 +16,6 @@ export class PeriodoLetivoService {
     @InjectRepository(PeriodoLetivoEntity) private periodoLetivoRepository: Repository<PeriodoLetivoEntity>,
   ) {}
 
-  async saveToMysql(processId: string) {
-    return this.periodoLetivoModel.find().where({ processId: processId }).exec().then((periodos) => {
-      const mysqlPeriodos = periodos.map((periodoDoc) => {
-        return mapPeriodoLetivoDocumentToEntity(periodoDoc);
-      });
-      return this.periodoLetivoRepository.save(mysqlPeriodos);
-    });
-  }
-
   createBulk(createPeriodoLetivoDtoList: CreatePeriodoLetivoDto[]) {
     const periodoLetivoDocuments = createPeriodoLetivoDtoList.map((periodoLetivoDto) => new this.periodoLetivoModel(periodoLetivoDto));
     return this.periodoLetivoModel.insertMany(periodoLetivoDocuments);

@@ -10,7 +10,7 @@ import {
 export class CreatePeriodoLetivoDto {
   @IsString()
   @IsNotEmpty()
-  "ProcessID": string;
+  processId: string;
 
   @IsString()
   @IsNotEmpty()

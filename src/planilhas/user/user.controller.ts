@@ -7,11 +7,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('sendToMysql')
-  sendToMysql() {
-    return this.userService.saveToMysql();
-  }
-
   @Post('bulk')
   createBulk(@Body() createUserDtoList: CreateUserDto[]) {
     return this.userService.createBulk(createUserDtoList);

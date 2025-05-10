@@ -1,39 +1,42 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export type DisciplineDocument = Discipline & Document;
 
 @Schema({ timestamps: true })
 export class Discipline {
+  @Prop({ type: Types.ObjectId, ref: 'PeriodoLetivo', required: true })
+  periodoLetivo: Types.ObjectId;
+
   @Prop({ required: true })
-  'Período Letivo (Identificação)': string;
+  academicPeriod: string;
 
   @Prop()
-  'Disciplina'?: string;
+  name?: string;
 
   @Prop({ required: true })
-  'Código da Disciplina': string;
+  code: string;
 
   @Prop({ required: true })
-  'Data Inicial': Date;
+  startDate: Date;
 
   @Prop({ required: true })
-  'Data Final': Date;
+  endDate: Date;
 
   @Prop({
     required: true,
     enum: ['Curso', 'NPJ', 'Projetos Extensionistas', 'TCC']
   })
-  'Categoria': 'Curso' | 'NPJ' | 'Projetos Extensionistas' | 'TCC';
+  category: 'Curso' | 'NPJ' | 'Projetos Extensionistas' | 'TCC';
 
   @Prop()
-  'Período Curricular'?: string;
+  curricularPeriod?: string;
 
   @Prop({ required: true })
-  'Estado': string;
+  state: string;
 
   @Prop({ required: true })
-  'Campus': string;
+  campus: string;
 }
 
 export const DisciplineSchema = SchemaFactory.createForClass(Discipline);

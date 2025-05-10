@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './planilhas/user/user.module';
 import { DisciplinesModule } from './planilhas/disciplines/disciplines.module';
+import { GeneralModule } from './general/general.module';
 
 @Module({
   imports: [
@@ -36,7 +37,7 @@ import { DisciplinesModule } from './planilhas/disciplines/disciplines.module';
       imports: [ConfigModule],
     }),    
     UserModule, 
-    DisciplinesModule    
+    DisciplinesModule, GeneralModule    
   ],
   controllers: [AppController],
   providers: [AppService],

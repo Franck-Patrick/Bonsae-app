@@ -7,11 +7,6 @@ import { UpdatePeriodoLetivoDto } from './dto/update-periodo-letivo.dto';
 export class PeriodoLetivoController {
   constructor(private readonly periodoLetivoService: PeriodoLetivoService) {}
 
-  @Post('sendToMysql/:processId')
-  sendToMysql(@Param('processId') processId: string) {
-    return this.periodoLetivoService.saveToMysql(processId);
-  }
-
   @Post('bulk')
   createBulk(@Body() createPeriodoLetivoDtoList: CreatePeriodoLetivoDto[]) {
     return this.periodoLetivoService.createBulk(createPeriodoLetivoDtoList);
