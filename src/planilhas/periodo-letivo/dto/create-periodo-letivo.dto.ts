@@ -3,23 +3,24 @@ import {
   IsNotEmpty,
   MaxLength,
   Matches,
+  IsDate,
 
 } from 'class-validator';
 
 export class CreatePeriodoLetivoDto {
   @IsString()
   @IsNotEmpty()
-  processId: string;
+  "ProcessID": string;
 
   @IsString()
   @IsNotEmpty()
   academicPeriod: string;
 
-  @IsString()
+  @IsDate()
   @IsNotEmpty()
-  dataInicial: string; 
+  startDate: string; 
 
-  @IsString()
+  @IsDate()
   @IsNotEmpty()
-  dataFinal: string; 
+  endDate: string; 
 }

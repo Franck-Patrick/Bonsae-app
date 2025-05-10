@@ -1,24 +1,32 @@
-import { IsEnum, IsOptional, IsString } from "class-validator";
+import { IsDateString, IsEnum, IsOptional, IsString } from 'class-validator';
 
-// incompleto
 export class CreateDisciplineDto {
-    @IsString()
-    periodId: string;
+  @IsString()
+  'Período Letivo (Identificação)': string;
 
-    @IsString()
-    @IsOptional()
-    name?: string;
+  @IsString()
+  @IsOptional()
+  'Disciplina': string;
 
-    @IsString()
-    code: string;
+  @IsString()
+  'Código da Disciplina': string;
 
-    @IsString()
-    startDate: Date;
+  @IsDateString()
+  'Data Inicial': string;
+  
+  @IsDateString()
+  'Data Final': string;
 
-    @IsString()
-    endDate: Date;
+  @IsEnum(['Curso', 'NPJ', 'Projetos Extensionistas', 'TCC'])
+  'Categoria': 'Curso' | 'NPJ' | 'Projetos Extensionistas' | 'TCC';
 
-    @IsString()
-    @IsEnum(['CURSO', 'NPJ', 'PROJETOS_EXTENSIONISTAS', 'TCC'])
-    category: 'CURSO' | 'NPJ' | 'PROJETOS_EXTENSIONISTAS' | 'TCC';
+  @IsString()
+  @IsOptional()
+  'Período Curricular': string;
+
+  @IsString()
+  'Estado': string;
+
+  @IsString()
+  'Campus': string;
 }

@@ -16,7 +16,6 @@ export class UserService {
     @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>,
   ) {}
 
-  // Busca todos os documentos de usuários do MongoDB e os salva no MySQL
   async saveToMysql() {
     return this.userModel.find().exec().then((users) => {
       const mysqlUsers = users.map((userDoc) => {

@@ -2,7 +2,6 @@ import { UserEntity } from "../entities/user.entity";
 import { UserProfileMap } from "../enums/user-profile.enum";
 import { UserDocument } from "../schema/user.schema";
 
-// Mapeamento do documento do MongoDB para a entidade do MySQL
 export function mapUserDocumentToEntity(doc: UserDocument): UserEntity {
     const entity = new UserEntity();
   

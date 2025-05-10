@@ -7,13 +7,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // Método para enviar os usuários do MongoDB para o MySQL
   @Post('sendToMysql')
   sendToMysql() {
     return this.userService.saveToMysql();
   }
 
-  // Método para criar uma lista de usuários
   @Post('bulk')
   createBulk(@Body() createUserDtoList: CreateUserDto[]) {
     return this.userService.createBulk(createUserDtoList);
@@ -29,19 +27,16 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  // Método para buscar um usuário por ID, provavelmente precisará ser ajustado para utilizar outro dado da planilha
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
   }
 
-  // Método para atualizar um usuário por ID, provavelmente precisará ser ajustado para utilizar outro dado da planilha
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
 
-  // Método para remover um usuário por ID, provavelmente precisará ser ajustado para utilizar outro dado da planilha
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);

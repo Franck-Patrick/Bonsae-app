@@ -8,7 +8,6 @@ import {
 } from 'class-validator';
 import { UserProfile } from '../enums/user-profile.enum';
 
-// DTO do usuário com os dados da planilha e padrões do banco
 export class CreateUserDto {
   @IsEnum(UserProfile)
   profileId: UserProfile;

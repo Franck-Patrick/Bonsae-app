@@ -11,10 +11,10 @@ import { DisciplinesModule } from './planilhas/disciplines/disciplines.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, // Para que o ConfigService esteja disponível globalmente
-      envFilePath: ['.env'], // Caminho para o arquivo .env
+      isGlobal: true,
+      envFilePath: ['.env'],
     }),
-    MongooseModule.forRootAsync({ // Adicione esta configuração para a conexão com o MongoDB
+    MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get<string>('MONGO_URI'),
