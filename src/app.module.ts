@@ -10,6 +10,7 @@ import { DisciplinesModule } from './planilhas/disciplines/disciplines.module';
 import { GeneralModule } from './general/general.module';
 import { ClassesModule } from './planilhas/classes/classes.module';
 import { EnrollmentModule } from './planilhas/enrollment/enrollment.module';
+import { PeriodoLetivoModule } from './planilhas/periodo-letivo/periodo-letivo.module';
 
 @Module({
   imports: [
@@ -33,13 +34,18 @@ import { EnrollmentModule } from './planilhas/enrollment/enrollment.module';
         password: configService.get<string>('DB_PASSWORD') || 'admin',
         database: configService.get<string>('DB_NAME') || 'database',
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: configService.get<boolean>('DB_SYNC') ?? false,
+        synchronize: true,
+        autoLoadEntities: true
       }),
       inject: [ConfigService],
       imports: [ConfigModule],
     }),    
     UserModule, 
-    DisciplinesModule, GeneralModule, ClassesModule, EnrollmentModule    
+    DisciplinesModule, 
+    GeneralModule, 
+    ClassesModule, 
+    EnrollmentModule,
+    PeriodoLetivoModule    
   ],
   controllers: [AppController],
   providers: [AppService],

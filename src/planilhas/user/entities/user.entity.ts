@@ -1,18 +1,22 @@
+import { EnrollmentEntity } from 'src/planilhas/enrollment/entities/enrollment.entity';
 import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  Unique
+  Unique,
+  OneToMany
 } from 'typeorm';
 
 @Entity({ name: 'tb_user' })
-@Unique('unique_user', ['profileId', 'name', 'registrationNumber', 'email']) 
-
+@Unique('unique_user', ['profileId', 'name', 'registrationNumber', 'email'])
 export class UserEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
   id!: number;
+
+  @OneToMany(() => EnrollmentEntity, enrollment => enrollment.user)
+  enrollments!: EnrollmentEntity[];
 
   @Column({ type: 'int', name: 'id_old_bonsae', nullable: true })
   idOldBonsae!: number;

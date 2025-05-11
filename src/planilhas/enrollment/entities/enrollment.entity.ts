@@ -1,6 +1,4 @@
 import { ClassEntity } from "src/planilhas/classes/entities/class.entity";
-import { Class } from "src/planilhas/classes/schema/class.schema";
-import { Discipline } from "src/planilhas/disciplines/schema/discipline.schema";
 import { UserEntity } from "src/planilhas/user/entities/user.entity";
 import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
@@ -9,11 +7,11 @@ export class EnrollmentEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
   id!: number;
 
-  @ManyToOne(() => ClassEntity)
-  @JoinColumn({ name: 'discipline_id' })
+  @ManyToOne(() => ClassEntity, turma => turma.enrollments)
+  @JoinColumn({ name: 'classes_id' })
   turma!: ClassEntity;
 
-  @ManyToOne(() => UserEntity)
+  @ManyToOne(() => UserEntity, user => user.enrollments)
   @JoinColumn({ name: 'users_id' })
   user!: UserEntity;
 

@@ -43,7 +43,6 @@ export class EnrollmentService {
   async createBulk(createEnrollmentDtoList: CreateEnrollmentDto[]) {
     const enrollmentDocuments = await Promise.all(
       createEnrollmentDtoList.map(async (enrollmentDto) => {
-        console.log('Processing enrollment DTO:', enrollmentDto);
         const userDoc = await this.findUserByMatriculaOrEmail(
           enrollmentDto.matricula,
           enrollmentDto.email
@@ -63,8 +62,6 @@ export class EnrollmentService {
           );
         }
 
-        console.log('User Document:', userDoc);
-        console.log('Class Document:', classDoc);
         const enrollment = new this.enrollmentModel({
           ...enrollmentDto,
           usuario: userDoc._id,

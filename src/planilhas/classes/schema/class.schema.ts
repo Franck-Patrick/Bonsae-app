@@ -12,10 +12,7 @@ export class Class {
     @Prop({ required: true })
     disciplinaCodigo: string;
 
-    @Prop({
-        required: true,
-        enum: ShiftEnum
-    })
+    @Prop({ required: true, enum: ShiftEnum })
     turno: string;
 
     @Prop({ required: true })

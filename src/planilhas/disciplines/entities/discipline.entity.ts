@@ -1,14 +1,18 @@
+import { ClassEntity } from "src/planilhas/classes/entities/class.entity";
 import { PeriodoLetivoEntity } from "src/planilhas/periodo-letivo/entities/periodo-letivo.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({ name: 'tb_disciplines' })
 export class DisciplineEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
   id!: number;
 
-  @ManyToOne(() => PeriodoLetivoEntity)
+  @ManyToOne(() => PeriodoLetivoEntity, period => period.disciplines)
   @JoinColumn({ name: 'school_period_id' })
   schoolPeriod!: PeriodoLetivoEntity;
+
+  @OneToMany(() => ClassEntity, classe => classe.discipline)
+  classes!: ClassEntity[];
 
   @Column({ type: 'text', nullable: true })
   name!: string;

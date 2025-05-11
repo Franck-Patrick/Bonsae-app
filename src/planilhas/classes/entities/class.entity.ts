@@ -1,19 +1,23 @@
 import { DisciplineEntity } from "src/planilhas/disciplines/entities/discipline.entity";
+import { EnrollmentEntity } from "src/planilhas/enrollment/entities/enrollment.entity";
 import { PeriodoLetivoEntity } from "src/planilhas/periodo-letivo/entities/periodo-letivo.entity";
-import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
 
 @Entity({ name: 'tb_classes' })
 export class ClassEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
   id!: number;
 
+  @ManyToOne(() => DisciplineEntity, discipline => discipline.classes)
+  @JoinColumn({ name: 'academic_classes_id' })
+  discipline!: DisciplineEntity;
+
   @ManyToOne(() => PeriodoLetivoEntity)
   @JoinColumn({ name: 'school_period_id' })
   schoolPeriod!: PeriodoLetivoEntity;
 
-  @ManyToOne(() => DisciplineEntity)
-  @JoinColumn({ name: 'academic_classes_id' })
-  academicClass!: DisciplineEntity;
+  @OneToMany(() => EnrollmentEntity, enrollment => enrollment.turma)
+  enrollments!: EnrollmentEntity[];
 
   @Column({ type: 'text', nullable: true })
   name!: string;

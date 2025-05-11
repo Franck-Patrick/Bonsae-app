@@ -19,7 +19,6 @@ export class UserService {
 
   async createBulk(createUserDtoList: CreateUserDto[]) {
     const mappedUsers = createUserDtoList.map((dto) => userDtoMapper(dto));
-    console.log('Mapped Users:', mappedUsers);
     const userDocuments = mappedUsers.map((data) => new this.userModel(data));
 
     return await this.userModel.insertMany(userDocuments);
