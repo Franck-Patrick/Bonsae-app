@@ -7,7 +7,7 @@ import {
 
 } from 'class-validator';
 
-export class CreatePeriodoLetivoDto {
+export class CreateAcademicPeriodDto {
   @IsString()
   @IsNotEmpty()
   processId: string;

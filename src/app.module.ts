@@ -10,7 +10,7 @@ import { DisciplinesModule } from './planilhas/disciplines/disciplines.module';
 import { GeneralModule } from './general/general.module';
 import { ClassesModule } from './planilhas/classes/classes.module';
 import { EnrollmentModule } from './planilhas/enrollment/enrollment.module';
-import { PeriodoLetivoModule } from './planilhas/periodo-letivo/periodo-letivo.module';
+import { AcademicPeriodModule } from './planilhas/academic-period/academic-period.module';
 
 @Module({
   imports: [
@@ -45,7 +45,7 @@ import { PeriodoLetivoModule } from './planilhas/periodo-letivo/periodo-letivo.m
     GeneralModule, 
     ClassesModule, 
     EnrollmentModule,
-    PeriodoLetivoModule    
+    AcademicPeriodModule    
   ],
   controllers: [AppController],
   providers: [AppService],

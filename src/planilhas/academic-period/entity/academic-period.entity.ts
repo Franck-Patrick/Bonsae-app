@@ -8,22 +8,24 @@ import {
   OneToMany
 } from 'typeorm';
 
-@Entity({ name: 'tb_periodo_letivo' })
-export class PeriodoLetivoEntity {
+@Entity({ name: 'academic_period' })
+export class AcademicPeriodEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
   id!: number;
 
-  @Column({ type: 'varchar', length: 50, nullable: true })
-  code!: string;
-
-  @OneToMany(() => DisciplineEntity, discipline => discipline.schoolPeriod)
-  disciplines!: DisciplineEntity[];
+  @Column({ type: 'varchar', length: 50, nullable: false, unique: true })
+  academicPeriod!: string;
 
   @Column({ type: 'date', name: 'start_date', nullable: true })
-  startDate!: Date;
+  startDate?: Date;
 
   @Column({ type: 'date', name: 'end_date', nullable: true })
-  endDate!: Date;
+  endDate?: Date;
+
+  @OneToMany(() => DisciplineEntity, discipline => discipline.academicPeriod, {
+    cascade: ['insert', 'update'],
+  })
+  disciplines!: DisciplineEntity[];
 
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
   createdAt!: Date;

@@ -1,47 +1,41 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateDisciplineDto } from './dto/create-discipline.dto';
 import { UpdateDisciplineDto } from './dto/update-discipline.dto';
-import { PeriodoLetivo, PeriodoLetivoDocument } from '../periodo-letivo/schema/periodo-letivo-schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Model } from 'mongoose';
-import { PeriodoLetivoEntity } from '../periodo-letivo/entities/periodo-letivo.entity';
-import { Repository } from 'typeorm';
 import { Discipline, DisciplineDocument } from './schema/discipline.schema';
-import { DisciplineEntity } from './entities/discipline.entity';
 import mapDto from './mapper/mapDto';
+import { AcademicPeriod, AcademicPeriodDocument } from '../academic-period/schema/academic-period.schema';
 
 @Injectable()
 export class DisciplinesService {
   constructor(
-    @InjectModel(PeriodoLetivo.name) private readonly periodoLetivoModel: Model<PeriodoLetivoDocument>,
-    @InjectModel(Discipline.name) private readonly disciplineModel: Model<Discipline>,
-    @InjectRepository(DisciplineEntity) private readonly disciplineRepository: Repository<DisciplineEntity>,
-    @InjectRepository(PeriodoLetivoEntity) private readonly periodoLetivoRepository: Repository<PeriodoLetivoEntity>,
+    @InjectModel(AcademicPeriod.name) private readonly academicPeriodModel: Model<AcademicPeriodDocument>,
+    @InjectModel(Discipline.name) private readonly disciplineModel: Model<Discipline>
   ) {}
 
-  private async findPeriodoLetivo(academicPeriod: string): Promise<PeriodoLetivoDocument> {
-    const periodoLetivoDoc = await this.periodoLetivoModel
+  private async findAcademicPeriod(academicPeriod: string): Promise<AcademicPeriodDocument> {
+    const academicPeriodDoc = await this.academicPeriodModel
       .findOne({ academicPeriod: academicPeriod })
       .exec();
-    if (!periodoLetivoDoc) {
+    if (!academicPeriodDoc) {
       throw new Error(`Periodo letivo not found for ${academicPeriod}`);
     }
-    return periodoLetivoDoc;
+    return academicPeriodDoc;
   }
   
   async createBulk(createDisciplineDtoList: CreateDisciplineDto[]) {
     const disciplineDocuments = await Promise.all(
       createDisciplineDtoList.map(async (disciplineDto) => {
-        const periodoLetivoDoc = await this.findPeriodoLetivo(disciplineDto['Período Letivo (Identificação)']);
+        const academicPeriodDoc = await this.findAcademicPeriod(disciplineDto['Período Letivo (Identificação)']);
 
-        if (!periodoLetivoDoc) {
+        if (!academicPeriodDoc) {
           throw new Error(`Periodo letivo not found for ${disciplineDto['Período Letivo (Identificação)']}`);
         }
 
         const discipline = mapDto(disciplineDto);
         const disciplineDoc = new this.disciplineModel(discipline);
-        disciplineDoc['periodoLetivo'] = periodoLetivoDoc.id;
+        disciplineDoc.academicPeriodDoc = academicPeriodDoc.id;
         return disciplineDoc;
       })
     );

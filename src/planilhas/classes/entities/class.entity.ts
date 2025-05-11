@@ -1,6 +1,6 @@
+import { AcademicPeriodEntity } from "src/planilhas/academic-period/entity/academic-period.entity";
 import { DisciplineEntity } from "src/planilhas/disciplines/entities/discipline.entity";
 import { EnrollmentEntity } from "src/planilhas/enrollment/entities/enrollment.entity";
-import { PeriodoLetivoEntity } from "src/planilhas/periodo-letivo/entities/periodo-letivo.entity";
 import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
 
 @Entity({ name: 'tb_classes' })
@@ -12,9 +12,9 @@ export class ClassEntity {
   @JoinColumn({ name: 'academic_classes_id' })
   discipline!: DisciplineEntity;
 
-  @ManyToOne(() => PeriodoLetivoEntity)
-  @JoinColumn({ name: 'school_period_id' })
-  schoolPeriod!: PeriodoLetivoEntity;
+  @ManyToOne(() => AcademicPeriodEntity)
+  @JoinColumn({ name: 'academic_period_id' })
+  academicPeriod!: AcademicPeriodEntity;
 
   @OneToMany(() => EnrollmentEntity, enrollment => enrollment.turma)
   enrollments!: EnrollmentEntity[];

@@ -11,4 +11,14 @@ export class GeneralController {
   saveAllDocuments(@Param('processId') processId: string) {
     return this.generalService.saveAllDocuments(processId);
   }
+
+  @Get('getAllDocuments/:processId')
+  getAllDocuments(@Param('processId') processId: string) {
+    return this.generalService.getAllDocuments(processId);
+  }
+
+  @Get('getAllEntities/:academicPeriod')
+  getAllEntities(@Param('academicPeriod') academicPeriod: string) {
+    return this.generalService.getAllEntities(academicPeriod);
+  }
 }

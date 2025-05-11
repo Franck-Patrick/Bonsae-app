@@ -5,8 +5,8 @@ export type DisciplineDocument = Discipline & Document;
 
 @Schema({ timestamps: true })
 export class Discipline {
-  @Prop({ type: Types.ObjectId, ref: 'PeriodoLetivo', required: true })
-  periodoLetivo: Types.ObjectId;
+  @Prop({ type: Types.ObjectId, ref: 'AcademicPeriod', required: true })
+  academicPeriodDoc: Types.ObjectId;
 
   @Prop({ required: true })
   academicPeriod: string;
