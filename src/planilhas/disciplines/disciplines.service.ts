@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Model } from 'mongoose';
 import { PeriodoLetivoEntity } from '../periodo-letivo/entities/periodo-letivo.entity';
 import { Repository } from 'typeorm';
-import { Discipline, DisciplineDocument } from './schema/discipline-schema';
+import { Discipline, DisciplineDocument } from './schema/discipline.schema';
 import { DisciplineEntity } from './entities/discipline.entity';
 import mapDto from './mapper/mapDto';
 
@@ -50,22 +50,22 @@ export class DisciplinesService {
   }
 
   create(createDisciplineDto: CreateDisciplineDto) {
-    return 'This action adds a new discipline';
+    return this.disciplineModel.create(createDisciplineDto);
   }
 
   findAll() {
-    return `This action returns all disciplines`;
+    return this.disciplineModel.find().exec();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} discipline`;
+    return this.disciplineModel.findById(id).exec;
   }
 
   update(id: number, updateDisciplineDto: UpdateDisciplineDto) {
-    return `This action updates a #${id} discipline`;
+    return this.disciplineModel.findByIdAndUpdate(id, updateDisciplineDto, { new: true }).exec();
   }
 
   remove(id: number) {
-    return `This action removes a #${id} discipline`;
+    return this.disciplineModel.findByIdAndDelete(id).exec();
   }
 }

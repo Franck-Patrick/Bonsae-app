@@ -9,6 +9,7 @@ import { UserModule } from './planilhas/user/user.module';
 import { DisciplinesModule } from './planilhas/disciplines/disciplines.module';
 import { GeneralModule } from './general/general.module';
 import { ClassesModule } from './planilhas/classes/classes.module';
+import { EnrollmentModule } from './planilhas/enrollment/enrollment.module';
 
 @Module({
   imports: [
@@ -38,7 +39,7 @@ import { ClassesModule } from './planilhas/classes/classes.module';
       imports: [ConfigModule],
     }),    
     UserModule, 
-    DisciplinesModule, GeneralModule, ClassesModule    
+    DisciplinesModule, GeneralModule, ClassesModule, EnrollmentModule    
   ],
   controllers: [AppController],
   providers: [AppService],

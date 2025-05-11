@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { ShiftEnum } from '../enum/shift.enum';
 
 export class CreateClassDto {
   @IsString()
@@ -6,8 +7,8 @@ export class CreateClassDto {
   "Disciplina (Código)": string;
 
   @IsString()
-  @IsNotEmpty()
-  "Turno": string;
+  @IsOptional()
+  "Turno": ShiftEnum;
 
   @IsString()
   @IsNotEmpty()

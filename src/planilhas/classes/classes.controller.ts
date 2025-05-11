@@ -7,6 +7,11 @@ import { UpdateClassDto } from './dto/update-class.dto';
 export class ClassesController {
   constructor(private readonly classesService: ClassesService) {}
 
+  @Post('bulk')
+  createBulk(@Body() createClassDto: CreateClassDto[]) {
+    return this.classesService.createBulk(createClassDto);
+  }
+
   @Post()
   create(@Body() createClassDto: CreateClassDto) {
     return this.classesService.create(createClassDto);

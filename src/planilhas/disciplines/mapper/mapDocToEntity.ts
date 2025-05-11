@@ -1,5 +1,5 @@
 import { PeriodoLetivoEntity } from 'src/planilhas/periodo-letivo/entities/periodo-letivo.entity';
-import { Discipline, DisciplineDocument } from '../schema/discipline-schema';
+import { Discipline, DisciplineDocument } from '../schema/discipline.schema';
 import { DisciplineEntity } from '../entities/discipline.entity';
 import { PeriodoLetivoDocument } from 'src/planilhas/periodo-letivo/schema/periodo-letivo-schema';
 
