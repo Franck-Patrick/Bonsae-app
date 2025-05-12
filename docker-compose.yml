@@ -1,30 +1,44 @@
+version: '3.8'
 services:
-#  app:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    ports:
-#      - "3000:3001"
-#    environment:
-#    depends_on:
-#      - mongo
-#    volumes:
-#      - .:/usr/src/app
-#      - /usr/src/app/node_modules
-#    command: npm run start:dev
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+      - mysql
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/meu-banco
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USERNAME=admin
+      - DB_PASSWORD=admin
+      - DB_NAME=database
+    command: npm run start:dev
 
   mongo:
-    image: mongo:latest
+    image: mongo:5.0
+    container_name: mongo
     ports:
       - "27017:27017"
-
+    volumes:
+      - mongo_data:/data/db
 
   mysql:
-    image: mysql:latest
-    ports:
-      - "3306:3306"
+    image: mysql:8.0
+    container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: database
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mongo_data:
+  mysql_data:
