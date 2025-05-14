@@ -2,6 +2,9 @@ import { IsDateString, IsEnum, IsOptional, IsString } from 'class-validator';
 
 export class CreateDisciplineDto {
   @IsString()
+  'Número do Processo': string;
+
+  @IsString()
   'Período Letivo (Identificação)': string;
 
   @IsString()

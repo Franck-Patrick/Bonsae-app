@@ -36,4 +36,9 @@ export class DisciplinesController {
   remove(@Param('id') id: string) {
     return this.disciplinesService.remove(+id);
   }
+
+  @Delete('rollback/:processNumber')
+  removeByProcess(@Param('processNumber') processNumber: string) {
+    return this.disciplinesService.removeByProcessNumber(+processNumber);
+  }
 }

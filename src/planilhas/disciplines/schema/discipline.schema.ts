@@ -5,6 +5,9 @@ export type DisciplineDocument = Discipline & Document;
 
 @Schema({ timestamps: true })
 export class Discipline {
+  @Prop({ required: true })
+  processNumber: string;
+
   @Prop({ type: Types.ObjectId, ref: 'AcademicPeriod', required: true })
   academicPeriodDoc: Types.ObjectId;
 
@@ -25,7 +28,7 @@ export class Discipline {
 
   @Prop({
     required: true,
-    enum: ['Curso', 'NPJ', 'Projetos Extensionistas', 'TCC']
+    enum: ['Curso', 'NPJ', 'Projetos Extensionistas', 'TCC'],
   })
   category: 'Curso' | 'NPJ' | 'Projetos Extensionistas' | 'TCC';
 

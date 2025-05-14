@@ -1,9 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateDisciplineDto } from './dto/create-discipline.dto';
 import { UpdateDisciplineDto } from './dto/update-discipline.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Discipline, DisciplineDocument } from './schema/discipline.schema';
+import { Discipline } from './schema/discipline.schema';
 import mapDto from './mapper/mapDto';
 import { AcademicPeriod, AcademicPeriodDocument } from '../academic-period/schema/academic-period.schema';
 
@@ -52,7 +52,7 @@ export class DisciplinesService {
   }
 
   findOne(id: number) {
-    return this.disciplineModel.findById(id).exec;
+    return this.disciplineModel.findById(id).exec();
   }
 
   update(id: number, updateDisciplineDto: UpdateDisciplineDto) {
@@ -61,5 +61,9 @@ export class DisciplinesService {
 
   remove(id: number) {
     return this.disciplineModel.findByIdAndDelete(id).exec();
+  }
+
+  removeByProcessNumber(processNumber: number) {
+    return this.disciplineModel.deleteMany({ processNumber }).exec();
   }
 }
