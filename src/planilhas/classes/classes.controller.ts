@@ -36,4 +36,9 @@ export class ClassesController {
   remove(@Param('id') id: string) {
     return this.classesService.remove(+id);
   }
+
+  @Delete('rollback/:processNumber')
+  removeByProcess(@Param('processNumber') processNumber: string) {
+    return this.classesService.removeByProcessNumber(+processNumber);
+  }
 }

@@ -6,20 +6,23 @@ export type ClassDocument = Class & Document;
 
 @Schema({ timestamps: true })
 export class Class {
-    @Prop({ type: Types.ObjectId, ref: 'Disciplines', required: true })
-    disciplina: Types.ObjectId;
+  @Prop({ required: true })
+  processNumber: string;
 
-    @Prop({ required: true })
-    disciplinaCodigo: string;
+  @Prop({ type: Types.ObjectId, ref: 'Disciplines', required: true })
+  disciplina: Types.ObjectId;
 
-    @Prop({ required: true, enum: ShiftEnum })
-    turno: string;
+  @Prop({ required: true })
+  disciplinaCodigo: string;
 
-    @Prop({ required: true })
-    turma: string;
+  @Prop({ required: true, enum: ShiftEnum })
+  turno: string;
 
-    @Prop({ required: true })
-    codigoTurma: string;
+  @Prop({ required: true })
+  turma: string;
+
+  @Prop({ required: true })
+  codigoTurma: string;
 }
 
 export const ClassSchema = SchemaFactory.createForClass(Class);

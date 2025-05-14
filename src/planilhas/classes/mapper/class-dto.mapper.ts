@@ -3,6 +3,7 @@ import { ClassDocument } from "../schema/class.schema";
 
 export function classDtoMapper(raw: any) {
   return {
+    processNumber: raw['Número do Processo'],
     disciplinaCodigo: raw['Disciplina (Código)'],
     turno: raw['Turno'],
     turma: raw['Turma'],

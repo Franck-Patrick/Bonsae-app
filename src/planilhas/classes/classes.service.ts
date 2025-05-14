@@ -50,7 +50,7 @@ export class ClassesService {
 
     return this.classModel.insertMany(classDocuments);
   }
-  
+
   create(createClassDto: CreateClassDto) {
     return this.classModel.create(createClassDto);
   }
@@ -69,5 +69,9 @@ export class ClassesService {
 
   remove(id: number) {
     return this.classModel.findByIdAndDelete(id).exec();
+  }
+
+  removeByProcessNumber(processNumber: number) {
+    return this.classModel.deleteMany({ processNumber }).exec();
   }
 }

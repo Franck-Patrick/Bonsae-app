@@ -3,6 +3,9 @@ import { ShiftEnum } from '../enum/shift.enum';
 
 export class CreateClassDto {
   @IsString()
+  'Número do Processo': string;
+
+  @IsString()
   @IsNotEmpty()
   "Disciplina (Código)": string;
 
