@@ -6,12 +6,14 @@ import { Model } from 'mongoose';
 import { Discipline } from './schema/discipline.schema';
 import mapDto from './mapper/mapDto';
 import { AcademicPeriod, AcademicPeriodDocument } from '../academic-period/schema/academic-period.schema';
+import { Class, ClassDocument } from '../classes/schema/class.schema';
 
 @Injectable()
 export class DisciplinesService {
   constructor(
     @InjectModel(AcademicPeriod.name) private readonly academicPeriodModel: Model<AcademicPeriodDocument>,
-    @InjectModel(Discipline.name) private readonly disciplineModel: Model<Discipline>
+    @InjectModel(Class.name) private readonly classModel: Model<ClassDocument>,
+    @InjectModel(Discipline.name) private readonly disciplineModel: Model<Discipline>,
   ) {}
 
   private async findAcademicPeriod(academicPeriod: string): Promise<AcademicPeriodDocument> {
@@ -63,7 +65,26 @@ export class DisciplinesService {
     return this.disciplineModel.findByIdAndDelete(id).exec();
   }
 
-  removeByProcessNumber(processNumber: number) {
-    return this.disciplineModel.deleteMany({ processNumber }).exec();
+  async removeByProcessNumber(processNumber: number) {
+    const disciplines = await this.disciplineModel.find({ processNumber }).exec();
+
+    if (disciplines.length === 0) {
+      return disciplines;
+    }
+
+    const disciplineIds = disciplines.map(d => d._id);
+
+    const classesResult = await this.classModel.deleteMany({
+      disciplina: { $in: disciplineIds },
+    }).exec();
+
+    const disciplinesResult = await this.disciplineModel.deleteMany({
+      _id: { $in: disciplineIds },
+    }).exec();
+
+    return {
+      classesResult,
+      disciplinesResult,
+    };
   }
 }
