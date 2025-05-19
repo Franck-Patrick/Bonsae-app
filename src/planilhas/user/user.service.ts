@@ -7,7 +7,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import { mapUserDocumentToEntity } from './mapper/user.mapper';
 import { userDtoMapper } from './mapper/map-dto';
 
 @Injectable()
@@ -43,5 +42,9 @@ export class UserService {
 
   remove(id: number) {
     return this.userModel.findByIdAndDelete(id).exec();
+  }
+
+  removeByProcessNumber(processNumber: number) {
+    return this.userModel.deleteMany({ processNumber }).exec();
   }
 }

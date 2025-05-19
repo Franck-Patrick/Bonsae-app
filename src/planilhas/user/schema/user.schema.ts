@@ -1,11 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
+import { Document } from 'mongoose';
 import { UserProfile } from '../enums/user-profile.enum';
 
 export type UserDocument = User & Document;
 
 @Schema({ timestamps: true })
 export class User {
+  @Prop({ required: true })
+  processNumber: string;
+
   @Prop({ enum: UserProfile, required: true })
   profileId: UserProfile;
 

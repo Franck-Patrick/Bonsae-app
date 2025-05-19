@@ -1,8 +1,8 @@
-import { CreateUserDto } from '../dto/create-user.dto';
 import { UserProfile } from '../enums/user-profile.enum';
 
 export function userDtoMapper(raw: any) {
   return {
+    processNumber: raw['Número do Processo'],
     profileId: raw['Perfil'] as UserProfile,
     subprofile: raw['Subperfil'] || '',
     name: raw['Nome'],

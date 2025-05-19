@@ -1,14 +1,9 @@
-import {
-  IsEnum,
-  IsString,
-  IsOptional,
-  IsEmail,
-  IsIn,
-  Max,
-} from 'class-validator';
-import { UserProfile } from '../enums/user-profile.enum';
+import { IsString, IsOptional } from 'class-validator';
 
 export class CreateUserDto {
+  @IsString()
+  'Número do Processo': string;
+
   @IsString()
   'Perfil': string;
 
