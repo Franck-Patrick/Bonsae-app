@@ -7,6 +7,7 @@ import { Discipline } from './schema/discipline.schema';
 import mapDto from './mapper/mapDto';
 import { AcademicPeriod, AcademicPeriodDocument } from '../academic-period/schema/academic-period.schema';
 import { Class, ClassDocument } from '../classes/schema/class.schema';
+import { Enrollment } from '../enrollment/schema/enrollment.schema';
 
 @Injectable()
 export class DisciplinesService {
@@ -14,6 +15,7 @@ export class DisciplinesService {
     @InjectModel(AcademicPeriod.name) private readonly academicPeriodModel: Model<AcademicPeriodDocument>,
     @InjectModel(Class.name) private readonly classModel: Model<ClassDocument>,
     @InjectModel(Discipline.name) private readonly disciplineModel: Model<Discipline>,
+    @InjectModel(Enrollment.name) private readonly enrollmentModel: Model<Enrollment>,
   ) {}
 
   private async findAcademicPeriod(academicPeriod: string): Promise<AcademicPeriodDocument> {
@@ -78,6 +80,10 @@ export class DisciplinesService {
       disciplina: { $in: disciplineIds },
     }).exec();
 
+    const enrollmentsResult = await this.enrollmentModel.deleteMany({
+      disciplina: { $in: disciplineIds },
+    }).exec();
+
     const disciplinesResult = await this.disciplineModel.deleteMany({
       _id: { $in: disciplineIds },
     }).exec();
@@ -85,6 +91,7 @@ export class DisciplinesService {
     return {
       classesResult,
       disciplinesResult,
+      enrollmentsResult,
     };
   }
 }

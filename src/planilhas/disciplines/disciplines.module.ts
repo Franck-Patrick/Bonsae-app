@@ -7,12 +7,14 @@ import { DisciplineEntity } from './entities/discipline.entity';
 import { AcademicPeriodModule } from '../academic-period/academic-period.module';
 import { Class, ClassSchema } from '../classes/schema/class.schema';
 import { Discipline, DisciplineSchema } from './schema/discipline.schema';
+import { Enrollment, EnrollmentSchema } from '../enrollment/schema/enrollment.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Class.name, schema: ClassSchema },
       { name: Discipline.name, schema: DisciplineSchema },
+      { name: Enrollment.name, schema: EnrollmentSchema },
     ]),
     TypeOrmModule.forFeature([DisciplineEntity]),
     AcademicPeriodModule,
