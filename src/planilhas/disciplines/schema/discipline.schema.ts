@@ -43,3 +43,4 @@ export class Discipline {
 }
 
 export const DisciplineSchema = SchemaFactory.createForClass(Discipline);
+DisciplineSchema.index({ code: 1, academicPeriodDoc: 1, processNumber: 1 }, { unique: true })

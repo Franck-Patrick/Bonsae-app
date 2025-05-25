@@ -26,3 +26,4 @@ export class Class {
 }
 
 export const ClassSchema = SchemaFactory.createForClass(Class);
+ClassSchema.index({ codigoTurma: 1, disciplina: 1, processNumber: 1 }, { unique: true });

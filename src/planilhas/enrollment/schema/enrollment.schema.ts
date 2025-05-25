@@ -25,6 +25,10 @@ export class Enrollment {
 
     @Prop({ required: true })
     isProfessor: boolean;
+
+    @Prop({ required: true })
+    processNumber: string;
 }
 
 export const EnrollmentSchema = SchemaFactory.createForClass(Enrollment);
+EnrollmentSchema.index({ turma: 1, usuario: 1, processNumber: 1 }, { unique: true })

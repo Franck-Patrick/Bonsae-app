@@ -1,8 +1,9 @@
 import { ClassEntity } from "src/planilhas/classes/entities/class.entity";
 import { UserEntity } from "src/planilhas/user/entities/user.entity";
-import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, CreateDateColumn, UpdateDateColumn, Unique } from "typeorm";
 
 @Entity({ name: 'tb_enrollment' })
+@Unique('unique_enrollment', ['user', 'turma'])
 export class EnrollmentEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
   id!: number;

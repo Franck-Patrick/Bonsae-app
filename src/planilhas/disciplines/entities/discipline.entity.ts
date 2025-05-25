@@ -1,8 +1,9 @@
 import { AcademicPeriodEntity } from "src/planilhas/academic-period/entity/academic-period.entity";
 import { ClassEntity } from "src/planilhas/classes/entities/class.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 
 @Entity({ name: 'tb_disciplines' })
+@Unique('unique_discipline', ['code'])
 export class DisciplineEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
   id!: number;

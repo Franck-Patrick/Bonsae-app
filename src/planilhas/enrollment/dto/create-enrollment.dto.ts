@@ -8,6 +8,10 @@ export class CreateStudentDto {
     @IsString()
     @IsNotEmpty()
     'Código da turma': string;
+    
+    @IsString()
+    @IsNotEmpty()
+    'Número do Processo': string;
 
     @IsEmail()
     @IsNotEmpty()
@@ -23,6 +27,10 @@ export class CreateProfessorDto {
     @IsNotEmpty()
     'Código da turma': string;
 
+    @IsString()
+    @IsNotEmpty()
+    'Número do Processo': string;
+
     @IsEmail()
     @IsNotEmpty()
     'Professores(as) responsavel(eis) matricula ou e-mail do aluno': string;
@@ -36,6 +44,10 @@ export class CreateEnrollmentDto {
     @IsString()
     @IsNotEmpty()
     codigoTurma: string;
+
+    @IsString()
+    @IsNotEmpty()
+    processNumber: string;
 
     @IsOptional()
     @IsString()

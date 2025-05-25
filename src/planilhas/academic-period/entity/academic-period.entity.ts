@@ -5,10 +5,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany
+  OneToMany,
+  Unique
 } from 'typeorm';
 
-@Entity({ name: 'academic_period' })
+@Entity({ name: 'tb_academic_period' })
+@Unique('unique_period', ['academicPeriod'])
 export class AcademicPeriodEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
   id!: number;

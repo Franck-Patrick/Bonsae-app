@@ -8,7 +8,7 @@ export class AcademicPeriod {
   @Prop({ required: true })
   processId: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   academicPeriod: string;
 
   @Prop({ required: true })
