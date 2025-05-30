@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { DisciplinesService } from './disciplines.service';
 import { DisciplinesController } from './disciplines.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -17,13 +17,14 @@ import { Enrollment, EnrollmentSchema } from '../enrollment/schema/enrollment.sc
       { name: Enrollment.name, schema: EnrollmentSchema },
     ]),
     TypeOrmModule.forFeature([DisciplineEntity]),
-    AcademicPeriodModule,
+    forwardRef(() => AcademicPeriodModule),
   ],
   controllers: [DisciplinesController],
   providers: [DisciplinesService],
   exports: [
     MongooseModule, 
-    TypeOrmModule
+    TypeOrmModule,
+    DisciplinesService,
   ]
 })
 export class DisciplinesModule {}

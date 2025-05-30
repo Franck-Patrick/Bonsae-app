@@ -26,6 +26,11 @@ export class DisciplinesController {
   findOne(@Param('id') id: string) {
     return this.disciplinesService.findOne(+id);
   }
+  
+  @Get('academic-period/:academicPeriod')
+  findByAcademicPeriod(@Param('academicPeriod') academicPeriod: string) {
+    return this.disciplinesService.findByAcademicPeriod(academicPeriod);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDisciplineDto: UpdateDisciplineDto) {
@@ -34,7 +39,7 @@ export class DisciplinesController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.disciplinesService.remove(+id);
+    return this.disciplinesService.remove(id);
   }
 
   @Delete('rollback/:processNumber')

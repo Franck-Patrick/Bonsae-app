@@ -59,11 +59,15 @@ export class DisciplinesService {
     return this.disciplineModel.findById(id).exec();
   }
 
+  findByAcademicPeriod(academicPeriod: string) {
+    return this.disciplineModel.find({ academicPeriod }).exec();
+  }
+
   update(id: number, updateDisciplineDto: UpdateDisciplineDto) {
     return this.disciplineModel.findByIdAndUpdate(id, updateDisciplineDto, { new: true }).exec();
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return this.disciplineModel.findByIdAndDelete(id).exec();
   }
 
