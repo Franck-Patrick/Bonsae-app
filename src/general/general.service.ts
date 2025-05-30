@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { InjectDataSource } from '@nestjs/typeorm';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { In, DataSource, QueryRunner } from 'typeorm';
 
 import { UserEntity } from 'src/planilhas/user/entities/user.entity';
@@ -21,9 +21,12 @@ import { mapDisciplineDocumentToEntity } from 'src/planilhas/disciplines/mapper/
 import { mapClassDocToEntity } from 'src/planilhas/classes/mapper/class-dto.mapper';
 import mapEnrollmentDocToEntity from 'src/planilhas/enrollment/mapper/enrollmentDocToEntity.mapper';
 import { mapAcademicPeriodDocumentToEntity } from 'src/planilhas/academic-period/mapper/doc-to-entity.mapper';
+import { Status } from 'src/planilhas/academic-period/enum/Status';
 
 @Injectable()
 export class GeneralService {
+  private statusModelMap: Record<Status, Model<any>>;
+
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     @InjectModel(AcademicPeriod.name) private academicPeriodModel: Model<AcademicPeriodDocument>,
@@ -32,7 +35,15 @@ export class GeneralService {
     @InjectModel(Enrollment.name) private enrollmentModel: Model<EnrollmentDocument>,
 
     @InjectDataSource() private readonly dataSource: DataSource
-  ) {}
+  ) {
+    this.statusModelMap = {
+      [Status.ACADEMIC_PERIOD]: this.academicPeriodModel,
+      [Status.DISCIPLINE]: this.disciplineModel,
+      [Status.CLASS]: this.classModel,
+      [Status.USER]: this.userModel,
+      [Status.ENROLLMENT]: this.enrollmentModel,
+    };
+  }
 
   async saveAllDocuments(processId: string) {
     const queryRunner = this.dataSource.createQueryRunner();
@@ -185,5 +196,26 @@ export class GeneralService {
     if (!enrollments.length) throw new Error(`No enrollments found for ${academicPeriodCode}`);
 
     return { academicPeriod, disciplines, classes, users, enrollments };
+  }
+
+  async getByCurrentStatus() {
+    const currentStepDoc = await this.academicPeriodModel.findOne().lean();
+    if (!currentStepDoc || !currentStepDoc.currentStep) return 'No status set';
+
+    const Model = this.statusModelMap[currentStepDoc.currentStep];
+
+    if (!Model) {
+      throw new Error(`No model mapped for step: '${currentStepDoc.currentStep}'`);
+    }
+    console.log(currentStepDoc);
+
+    return await Model.find().exec();
+  }
+
+  updateStatus(newStep: Status) {
+    return this.academicPeriodModel.updateMany(
+      {},
+      { $set: { currentStep: newStep } }
+    ).exec();
   }
 }

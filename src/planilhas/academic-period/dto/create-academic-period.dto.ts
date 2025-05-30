@@ -1,11 +1,11 @@
 import {
   IsString,
   IsNotEmpty,
-  MaxLength,
-  Matches,
   IsDate,
+  IsEnum,
 
 } from 'class-validator';
+import { Status } from '../enum/Status';
 
 export class CreateAcademicPeriodDto {
   @IsString()
@@ -22,5 +22,9 @@ export class CreateAcademicPeriodDto {
 
   @IsDate()
   @IsNotEmpty()
-  endDate: string; 
+  endDate: string;
+
+  @IsEnum(Status)
+  @IsNotEmpty()
+  currentStep: Status;
 }

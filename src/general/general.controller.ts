@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { GeneralService } from './general.service';
-import { CreateGeneralDto } from './dto/create-general.dto';
-import { UpdateGeneralDto } from './dto/update-general.dto';
+import { Status } from 'src/planilhas/academic-period/enum/Status';
 
 @Controller('general')
 export class GeneralController {
@@ -20,5 +19,15 @@ export class GeneralController {
   @Get('getAllEntities/:academicPeriod')
   getAllEntities(@Param('academicPeriod') academicPeriod: string) {
     return this.generalService.getAllEntities(academicPeriod);
+  }
+
+  @Get('status')
+  getByCurrentStatus() {
+    return this.generalService.getByCurrentStatus();
+  }
+
+  @Put('status')
+  updateStatus(@Body('newStep') newStep: Status) {
+    return this.generalService.updateStatus(newStep);
   }
 }

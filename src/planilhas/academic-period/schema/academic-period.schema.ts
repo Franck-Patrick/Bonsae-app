@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
+import { Status } from "../enum/Status";
 
 export type AcademicPeriodDocument = AcademicPeriod & Document;
 
@@ -16,6 +17,9 @@ export class AcademicPeriod {
 
   @Prop({ required: true })
   endDate: Date;
+
+  @Prop({ required: true, enum: Status })
+  currentStep: Status
 }
 
 export const AcademicPeriodSchema = SchemaFactory.createForClass(AcademicPeriod);
