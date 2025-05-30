@@ -94,4 +94,8 @@ export class EnrollmentService {
   remove(id: number) {
     return this.enrollmentModel.findByIdAndDelete(id).exec();
   }
+
+  removeByProcessNumber(processNumber: number) {
+    return this.enrollmentModel.deleteMany({ processNumber }).exec();
+  }
 }

@@ -52,4 +52,9 @@ export class EnrollmentController {
   remove(@Param('id') id: string) {
     return this.enrollmentService.remove(+id);
   }
+
+  @Delete('rollback/:processNumber')
+  removeByProcess(@Param('processNumber') processNumber: number) {
+    return this.enrollmentService.removeByProcessNumber(processNumber);
+  }
 }
