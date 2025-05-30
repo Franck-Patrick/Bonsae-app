@@ -41,4 +41,9 @@ export class AcademicPeriodController {
   remove(@Param('id') id: string) {
     return this.academicPeriodService.remove(+id);
   }
+
+  @Delete('rollback/:processNumber')
+  removeByProcess(@Param('processNumber') processNumber: string) {
+    return this.academicPeriodService.removeByProcessNumber(+processNumber);
+  }
 }
