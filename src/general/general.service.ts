@@ -198,8 +198,8 @@ export class GeneralService {
     return { academicPeriod, disciplines, classes, users, enrollments };
   }
 
-  async getByCurrentStatus() {
-    const currentStepDoc = await this.academicPeriodModel.findOne().lean();
+  async getByCurrentStatus(processId: string) {
+    const currentStepDoc = await this.academicPeriodModel.findOne({processId}).lean();
     if (!currentStepDoc || !currentStepDoc.currentStep) return 'No status set';
 
     const Model = this.statusModelMap[currentStepDoc.currentStep];
@@ -209,12 +209,12 @@ export class GeneralService {
     }
     console.log(currentStepDoc);
 
-    return await Model.find().exec();
+    return await Model.find({processId}).exec();
   }
 
-  updateStatus(newStep: Status) {
+  updateStatus(newStep: Status, processId: string) {
     return this.academicPeriodModel.updateMany(
-      {},
+      {processId},
       { $set: { currentStep: newStep } }
     ).exec();
   }

@@ -21,13 +21,13 @@ export class GeneralController {
     return this.generalService.getAllEntities(academicPeriod);
   }
 
-  @Get('status')
-  getByCurrentStatus() {
-    return this.generalService.getByCurrentStatus();
+  @Get('status/:processId')
+  getByCurrentStatus(@Param('processId') processId: string) {
+    return this.generalService.getByCurrentStatus(processId);
   }
 
-  @Put('status')
-  updateStatus(@Body('newStep') newStep: Status) {
-    return this.generalService.updateStatus(newStep);
+  @Put('status/:processId')
+  updateStatus(@Param('processId') processId: string, @Body('newStep') newStep: Status) {
+    return this.generalService.updateStatus(newStep, processId);
   }
 }
