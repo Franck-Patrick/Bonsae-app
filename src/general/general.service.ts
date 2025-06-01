@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { InjectDataSource } from '@nestjs/typeorm';
-import mongoose, { Model } from 'mongoose';
+import mongoose, { model, Model } from 'mongoose';
 import { In, DataSource, QueryRunner } from 'typeorm';
 
 import { UserEntity } from 'src/planilhas/user/entities/user.entity';
@@ -202,17 +202,25 @@ export class GeneralService {
     const currentStepDoc = await this.academicPeriodModel.findOne({processId}).lean();
     if (!currentStepDoc || !currentStepDoc.currentStep) return 'No status set';
 
-    const Model = this.statusModelMap[currentStepDoc.currentStep];
+    const step = currentStepDoc.currentStep as Status;
+    const Model = this.statusModelMap[step];
 
     if (!Model) {
       throw new Error(`No model mapped for step: '${currentStepDoc.currentStep}'`);
     }
-    console.log(currentStepDoc);
 
-    return await Model.find({processId}).exec();
+    return await Model.find({
+      $or: [
+      { processId: processId },
+      { processNumber: processId }
+      ]
+    }).exec();
   }
 
   updateStatus(newStep: Status, processId: string) {
+    const possibleStatus = Object.values(Status);
+    if (!(possibleStatus.includes(newStep))) return;
+
     return this.academicPeriodModel.updateMany(
       {processId},
       { $set: { currentStep: newStep } }
