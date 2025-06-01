@@ -32,6 +32,10 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
+  async findAllByProcessId(processNumber: string) {
+    return this.userModel.find({ processNumber }).exec();
+  }
+
   findOne(id: number) {
     return this.userModel.findById(id).exec();
   }

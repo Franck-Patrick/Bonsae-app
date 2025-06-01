@@ -55,6 +55,10 @@ export class DisciplinesService {
     return this.disciplineModel.find().exec();
   }
 
+  async findAllByProcessId(processNumber: string) {
+    return this.disciplineModel.find({ processNumber }).exec();
+  }
+
   findOne(id: number) {
     return this.disciplineModel.findById(id).exec();
   }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
 import { DisciplinesService } from './disciplines.service';
 import { CreateDisciplineDto } from './dto/create-discipline.dto';
 import { UpdateDisciplineDto } from './dto/update-discipline.dto';
@@ -20,6 +20,15 @@ export class DisciplinesController {
   @Get()
   findAll() {
     return this.disciplinesService.findAll();
+  }
+
+  @Get('get-one/:processNumber')
+  async findAllByProcessId(@Param('processNumber') processNumber: string) {
+    if (!processNumber || processNumber.trim() === '' || processNumber === 'NaN') {
+      throw new BadRequestException('Invalid process number provided.');
+    }
+
+    return this.disciplinesService.findAllByProcessId(processNumber);
   }
 
   @Get(':id')

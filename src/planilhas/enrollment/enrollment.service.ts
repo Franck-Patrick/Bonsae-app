@@ -83,6 +83,10 @@ export class EnrollmentService {
     return this.enrollmentModel.find().exec();
   }
 
+  async findAllByProcessId(processNumber: string) {
+    return this.enrollmentModel.find({ processNumber }).exec();
+  }
+
   findOne(id: number) {
     return this.enrollmentModel.findById(id).exec();
   }

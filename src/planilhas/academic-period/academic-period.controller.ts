@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { AcademicPeriodService } from './academic-period.service';
 import { CreateAcademicPeriodDto } from './dto/create-academic-period.dto';
 import { UpdateAcademicPeriodDto } from './dto/update-periodo-letivo.dto';
@@ -12,11 +12,15 @@ export class AcademicPeriodController {
     return this.academicPeriodService.createBulk(createAcademicPeriodDtoList);
   }
 
-  @Post('findAllByProcessId/:processId')
-  findAllByProcessId(@Param('processId') processId: string) {
-    return this.academicPeriodService.findAllByProcessId(processId);
-  }
+  @Get('get-one/:processNumber')
+  async findAllByProcessId(@Param('processNumber') processNumber: string) {
+    if (!processNumber || processNumber.trim() === '' || processNumber === 'NaN') {
+      throw new BadRequestException('Invalid process number provided.');
+    }
 
+    return this.academicPeriodService.findAllByProcessId(processNumber);
+  }
+  
   @Post()
   create(@Body() createAcademicPeriodDto: CreateAcademicPeriodDto) {
     return this.academicPeriodService.create(createAcademicPeriodDto);

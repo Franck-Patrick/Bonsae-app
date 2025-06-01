@@ -61,6 +61,10 @@ export class ClassesService {
     return this.classModel.find().exec();
   }
 
+  async findAllByProcessId(processNumber: string) {
+    return this.disciplineModel.find({ processNumber }).exec();
+  }
+
   findOne(id: number) {
     return this.classModel.findById(id).exec();
   }

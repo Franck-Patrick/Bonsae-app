@@ -26,8 +26,8 @@ export class AcademicPeriodService {
         return this.academicPeriodModel.find().exec();
     }
 
-    findAllByProcessId(processId: string) {
-        return this.academicPeriodModel.find().where({processId: processId}).exec();
+    async findAllByProcessId(processNumber: string) {
+        return this.academicPeriodModel.find({ processId: processNumber }).exec();
     }
 
     findOne(id: number) {
