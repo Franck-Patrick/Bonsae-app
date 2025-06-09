@@ -42,6 +42,7 @@ export class GeneralService {
       [Status.CLASS]: this.classModel,
       [Status.USER]: this.userModel,
       [Status.ENROLLMENT]: this.enrollmentModel,
+      [Status.FINISHED]: this.enrollmentModel, // isso foi só pra teste, mudarei depois
     };
   }
 

@@ -3,5 +3,6 @@ export enum Status {
     DISCIPLINE = 'Discipline',
     CLASS = 'Class',
     USER = 'User',
-    ENROLLMENT = 'Enrollment'
+    ENROLLMENT = 'Enrollment',
+    FINISHED = 'Finished'
 }
